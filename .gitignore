@@ -1,0 +1,175 @@
+<<<<<<< HEAD
+# Directories #
+/build/
+/bin/
+target/
+ 
+# OS Files #
+.DS_Store
+ 
+*.class
+ 
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+
+ 
+######################
+# Windows
+######################
+ 
+# Windows image file caches
+Thumbs.db 
+ 
+# Folder config file
+Desktop.ini
+ 
+######################
+# OSX
+######################
+ 
+.DS_Store
+.svn
+ 
+# Thumbnails
+._*
+ 
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+ 
+#######################
+# LINUX
+######################
+
+# Dolphin
+.directory
+ 
+######################
+# Eclipse
+######################
+ 
+*.pydevproject
+.project
+.metadata
+.recommenders
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+/src/main/resources/rebel.xml
+Servers/
+# External tool builders
+.externalToolBuilders/
+ 
+# Locally stored "Eclipse launch configurations"
+*.launch
+ 
+# CDT-specific
+.cproject
+ 
+# PDT-specific
+.buildpath
+
+######################
+# Specific
+######################
+/src/main/webapp/img/wine_pictures/*/*.jpg
+/src/main/webapp/img/wine_pictures/*/*.jpeg
+/src/main/webapp/img/wine_pictures/*/.gitignore
+=======
+# Directories #
+/build/
+/bin/
+target/
+ 
+# OS Files #
+.DS_Store
+ 
+*.class
+ 
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+
+ 
+######################
+# Windows
+######################
+ 
+# Windows image file caches
+Thumbs.db 
+ 
+# Folder config file
+Desktop.ini
+ 
+######################
+# OSX
+######################
+ 
+.DS_Store
+.svn
+ 
+# Thumbnails
+._*
+ 
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+ 
+#######################
+# LINUX
+######################
+
+# Dolphin
+.directory
+ 
+######################
+# Eclipse
+######################
+ 
+*.pydevproject
+.project
+.metadata
+.recommenders
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+/src/main/resources/rebel.xml
+Servers/
+# External tool builders
+.externalToolBuilders/
+ 
+# Locally stored "Eclipse launch configurations"
+*.launch
+ 
+# CDT-specific
+.cproject
+ 
+# PDT-specific
+.buildpath
+
+######################
+# Images
+######################
+src/main/webapp/img/wine_pictures/*.jpg
+>>>>>>> refs/remotes/origin/roro_web
