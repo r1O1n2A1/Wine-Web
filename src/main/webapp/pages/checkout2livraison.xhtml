@@ -1,0 +1,148 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/commons.xhtml">
+	<ui:define name="body">
+		<div id="content">
+
+			<div class="container">
+
+				<div class="col-md-12">
+					<ul class="breadcrumb">
+						<li><a href="index.jsf">Acceuil</a></li>
+						<li>Mode de livraison</li>
+					</ul>
+				</div>
+
+				<div class="col-md-9" id="checkout">
+
+					<div class="box">
+						<form jsf="h:form" id="Form">
+							<h1>Mode de livraison</h1>
+							<ul class="nav nav-pills nav-justified">
+								<li class="disabled"><a href=""><i
+										class="fa fa-map-marker"></i><br />Address</a></li>
+								<li class="active"><a href=""><i class="fa fa-truck"></i><br />Mode
+										de livraison</a></li>
+								<li class="disabled"><a href=""><i class="fa fa-money"></i><br />Mode
+										de paiement </a></li>
+								<li class="disabled"><a href=""><i class="fa fa-eye"></i><br />Confirmation</a></li>
+							</ul>
+
+							<div class="content">
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="box shipping-method">
+											<div class="media-left media-middle">
+												<img class="media-object" src="img/logocolissimo.png" />
+											</div>
+											<p>Livré en 2 jours ouvrés si vous commandez avant 14h du
+												lundi au vendredi</p>
+
+											<div class="box-footer text-center">
+
+												<input type="radio" name="delivery" value=""
+													checked="checked" />
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="box shipping-method">
+
+											<div class="media-left media-middle">
+												<img class="media-object" src="img/logochronopost.png" />
+											</div>
+
+											<p>Livré avant 13h le jour suivant si vous commandez
+												avant 12h du lundi au vendredi</p>
+
+											<div class="box-footer text-center">
+
+												<input type="radio" name="delivery" value="delivery2" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /.row -->
+
+							</div>
+							<!-- /.content -->
+						</form>
+						<h:form>
+							<div class="box-footer">
+								<div class="pull-left">
+									<a href="pages/checkout1adress.jsf" class="btn btn-default"><i
+										class="fa fa-chevron-left"></i>Retourne à la page avant</a>
+								</div>
+								<div class="pull-right">
+									<h:commandButton
+										action="#{mBeanCartManagement.validerLivraison()}"
+										value="Valider et aller à la page de Paiement"
+										class="btn btn-primary"></h:commandButton>
+								</div>
+							</div>
+						</h:form>
+					</div>
+					<!-- /.box -->
+
+
+				</div>
+				<!-- /.col-md-9 -->
+
+				<div class="col-md-3">
+
+					<div class="box" id="order-summary">
+						<div class="box-header">
+							<h3>Recapitulatif du panier</h3>
+						</div>
+						<p class="text-muted">Les Couts du transport et couts
+							additionnel sont calculees a partir des valeurs que vous avez
+							rentrees.</p>
+						<div class="table-responsive">
+							<table class="table" id="tabRecapOrder">
+								<tbody>
+									<tr>
+										<td>Sous total</td>
+										<th><h:outputText id="subTotal"
+												value="#{mBeanCartManagement.calculSubTotal()}€">
+												 <f:convertNumber minFractionDigits="2" />
+											</h:outputText></th>
+									</tr>
+									<tr>
+										<td>Frais de transport</td>
+										<th><h:outputText id="shipping"
+												value="#{mBeanCartManagement.caclulShippingFree()}€">
+												 <f:convertNumber minFractionDigits="2" />
+											</h:outputText></th>
+									</tr>
+									<tr>
+										<td>Tax</td>
+										<th>0.00€</th>
+									</tr>
+									<tr class="total">
+										<td>Total</td>
+										<th><h:outputText id="total"
+												value="#{mBeanCartManagement.calculTotal()}€">
+												 <f:convertNumber minFractionDigits="2" />
+											</h:outputText></th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+				<!-- /.col-md-3 -->
+
+			</div>
+			<!-- /.container -->
+
+
+
+
+		</div>
+		<!-- /#content -->
+
+	</ui:define>
+</ui:composition>

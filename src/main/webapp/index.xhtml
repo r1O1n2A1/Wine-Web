@@ -1,0 +1,151 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	template="/WEB-INF/templates/commons.xhtml">
+	<ui:define name="body">
+		<div class="container">
+			<div class="col-md-12">
+				<div id="main-slider">
+					<div class="item">
+						<img class="img-responsive" src="img/main-slider6.jpg" alt="" />
+					</div>
+					<div class="item">
+						<img src="img/main-slider1.jpg" alt="" class="img-responsive" />
+					</div>
+					<!-- <div class="item">
+						<img class="img-responsive" src="img/main-slider2.jpg" alt="" />
+					</div>
+					<div class="item">
+						<img class="img-responsive" src="img/main-slider3.jpg" alt="" />
+					</div>-->
+					<div class="item">
+						<img class="img-responsive" src="img/main-slider5.jpg" alt="" />
+					</div>
+					<!-- <div class="item">
+						<img class="img-responsive" src="img/main-slider7.jpeg" alt="" />
+					</div>-->
+					<div class="item">
+						<img class="img-responsive" src="img/main-slider8.jpg" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- *** HOT PRODUCT SLIDESHOW *** -->
+		<form jsf:id="form1">
+			<div id="hot">
+				<div class="box">
+					<div class="container">
+						<div class="col-md-12">
+							<h2>Les bonnes affaires du moment</h2>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="product-slider">
+						<ui:repeat var="product" value="#{mBeanProduct.promotedWinesList}">
+							<div class="item">
+								<ui:include src="/WEB-INF/templates/product.xhtml" />
+							</div>
+						</ui:repeat>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- *** BLOG HOMEPAGE ***-->
+
+		<div class="box text-center" data-animate="fadeInUp">
+			<div class="container">
+				<div class="col-md-12">
+					<h3 class="text-uppercase">Depuis notre blog</h3>
+
+					<p class="lead">
+						Quoi de neuf dans l'univers du vin? <a href="blog.html">Consultez notre blog!</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+
+			<div class="col-md-12" data-animate="fadeInUp">
+
+				<div id="blog-homepage" class="row">
+					<div class="col-sm-6">
+						<div class="post">
+							<h4>
+								<a href="post.html">FOIRE AUX VINS: LES PIEGES A EVITER</a>
+							</h4>
+							<p class="author-category">
+								Par <a href="#">Emmanuel Delmas</a> sur <a href=""> ITele</a>
+							</p>
+							<hr></hr>
+							<p class="intro">L'idée était de revenir aux fondamentaux,
+								faire reprendre conscience aux gens que le vin sincère et
+								'juste' est trop rarement proposé en Grande Distribution, que le
+								vin, pour le néophyte réclamait un véritable conseil. Que le
+								consommateur devait revenir à la source, auprès du vigneron
+								'jardinier', et retrouver le caviste de proximité, source de
+								conseil, et d'écoute.</p>
+							<p class="read-more">
+								<a href="pages/suiteArticle1.jsf" class="btn btn-primary">Lire
+									la suite</a>
+							</p>
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<div class="post">
+							<h4>
+								<a href="post.html">WEEK END DES GRANDS CRUS</a>
+							</h4>
+							<p class="author-category">
+								Par <a href="#">John Slim</a> à <a href="">l'office du
+									tourisme de Bordeaux</a>
+							</p>
+							<hr></hr>
+							<p class="intro">Le Week-end des Grands Crus, est un
+								rendez-vous immanquable pour les passionnés de grands vins de
+								Bordeaux ! <br/>L’Union des Grands Crus, organisatrice de
+								l’événement, est à l’origine du phénomène des « dégustations
+								primeurs ». Chaque année, au printemps des milliers de
+								journalistes et de professionnels du vin sillonnent ...</p>
+							<p class="read-more">
+								<a href="pages/suiteArticle2.jsf" class="btn btn-primary">Lire
+									la suite</a>
+							</p>
+						</div>
+
+					</div>
+
+				</div>
+				<!-- /#blog-homepage -->
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+
+
+<!-- /.text -->
+
+<!-- <div class="ribbon sale">
+                                                                <div class="theribbon">SALE</div>
+                                                                <div class="ribbon-background"></div>
+                                                        </div>
+
+
+
+                                                        <div class="ribbon new">
+                                                                <div class="theribbon">NEW</div>
+                                                                <div class="ribbon-background"></div>
+                                                        </div>
+
+
+
+
+
+                                                        <div class="ribbon gift">
+                                                                <div class="theribbon">GIFT</div>
+                                                                <div class="ribbon-background"></div>
+                                                        </div>-->

@@ -1,0 +1,112 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+	class="navbar navbar-default yamm" role="navigation" id="navbar">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand home" href="index.jsf">
+				<img src="img/wine.png" />
+			</a>
+			<div class="navbar-buttons">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#navigation">
+					<span class="sr-only">Toggle navigation</span> <i class="fa fa-align-justify"></i>
+				</button>
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#search">
+					<span class="sr-only">Toggle search</span> <i class="fa fa-search"></i>
+				</button>
+				<a class="btn btn-default navbar-toggle" href="pages/basket.jsf"> <i
+					class="fa fa-shopping-cart"></i> <span class="hidden-xs">0 items in cart</span>
+				</a>
+			</div>
+		</div>
+		<!--/.navbar-header -->
+		<form jsf:if="form1">
+		<div class="navbar-collapse collapse" id="navigation">
+			<ul class="nav navbar-nav navbar-left">
+					<li class="dropdown yamm-fw open"><a href="index.jsf">Accueil</a></li>
+					<ui:repeat var="topCategory" value="#{mBeanProduct.wineTypes}">
+						<li class="dropdown yamm-fw">
+							<a jsf:action="#{mBeanProduct.category(topCategory)}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">#{topCategory.type}<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<div class="yamm-content">
+										<div class="row">
+											<div class="col-sm-6">
+												<h5>Cépages</h5>
+											</div>
+											<div class="col-sm-3">
+												<h5>Appelations</h5>
+											</div>
+											<div class="col-sm-3">
+												<h5>Prix</h5>
+											</div>
+											<ui:repeat var="varietal" varStatus="loop" value="#{mBeanProduct.varietals[topCategory]}">
+										    	<h:outputText value="&lt;div class='col-sm-3'&gt;&lt;ul&gt;" escape="false" rendered="#{loop.index % 5 == 0}" />
+										    		<li><a jsf:action="#{mBeanProduct.category(topCategory,varietal)}">#{varietal.description}</a></li>
+										    	<h:outputText value="&lt;/ul&gt;&lt;/div&gt;" escape="false" rendered="#{loop.last or (loop.index + 1) % 5 == 0}" /> 
+											</ui:repeat>
+											<h:panelGroup class="col-sm-3" rendered="#{mBeanProduct.varietals[topCategory].size() le 5}"></h:panelGroup>
+											<div class="col-sm-3">
+												<ul>
+													<ui:repeat var="appellation" value="#{mBeanProduct.appellations[topCategory]}">
+									    				<li><a jsf:action="#{mBeanProduct.category(topCategory,appellation)}">#{appellation}</a></li>
+													</ui:repeat>
+												</ul>
+											</div>
+											<div class="col-sm-3">
+												<ul>
+													<ui:repeat value="#{mBeanProduct.pricesRepartition[topCategory].entrySet().toArray()}" var="entry">
+													   <li jsf:rendered="#{entry.value gt 0}">
+														   <a jsf:action="#{mBeanProduct.category(topCategory,entry.key)}">
+														   		<h:outputLabel rendered="#{entry.key == 0}" value="moins de 50€"/>
+														   		<h:outputLabel rendered="#{entry.key == 50}" value="en dessous de 100€"/>
+														   		<h:outputLabel rendered="#{entry.key == 100}" value="au delà de 100€"/>
+														   	</a>
+													   </li>
+													</ui:repeat>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ui:repeat>
+					<!-- <li><a jsf:action="#{mBeanProduct.category(mBeanProduct.accessory)}">Accessoires</a></li>-->
+			</ul>
+		</div>
+		</form>
+		<div class="navbar-buttons">
+			<div class="navbar-collapse collapse right" id="basket-overview">
+				<a href="pages/basket.jsf"  class="btn btn-primary navbar-btn">
+					<i class="fa fa-shopping-cart"></i>
+					<span class="hidden-sm">
+						<h:outputLabel value="#{mBeanCartManagement.calculerNumTotalQantity()}" /> articles
+					</span>
+				</a>
+			</div>
+			<div class="navbar-collapse collapse right" id="search-not-mobile">
+					<button data-target="#search" data-toggle="collapse" class="btn navbar-btn btn-primary" type="button">
+                        <span class="sr-only">Toggle search</span>
+                        <i class="fa fa-search"></i>
+                    </button>
+			</div>
+		</div>
+		<div id="search" class="collapse clearfix">
+			<form class="navbar-form" role="search">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Rechercher" />
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-primary">
+							<i class="fa fa-search"></i>
+						</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,144 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/commons.xhtml">
+	<ui:define name="body">
+		<div id="content">
+			<div class="container">
+
+				<div class="col-md-12">
+
+					<ul class="breadcrumb">
+						<li><a href="index.jsf">Accueil</a></li>
+						<li>Créer mon compte</li>
+					</ul>
+
+				</div>
+
+				<div class="col-md-6">
+					<div class="box">
+						<div class="text-center">
+							<p class="lead">Vos informations d'identification</p>
+						</div>
+						<hr />
+
+						<h:form>
+							<div class="form-group">
+								<label>Civilité</label>
+								<div class="btn-group">
+									<h:selectOneMenu class="form-control"
+										value="#{mBeanClient.user.civility}" required="true">
+										<f:selectItems value="#{mBeanClient.civilities}" />
+									</h:selectOneMenu>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Nom *</label>
+								<h:inputText class="form-control"
+									value="#{mBeanClient.user.lastname}" required="true" />
+							</div>
+							<div class="form-group">
+								<label>Prenom *</label>
+								<h:inputText value="#{mBeanClient.user.firstname}"
+									class="form-control" required="true" />
+							</div>
+							<div class="form-group">
+								<label>Date de naissance</label>
+								<h:inputText value="#{mBeanClient.user.birthdate}"
+									class="form-control" required="true" />
+							</div>
+
+							<f:event listener="#{mBeanClient.validateMail}"
+								type="postValidate" />
+							<div class="form-group">
+								<label for="mail1">Email*</label>
+								<h:inputSecret id="mail1" value="#{mBeanClient.user.mail}"
+									required="true" requiredMessage="Entrez votre adresse mail"
+									class="form-control" />
+								<h:message for="mail1" style="color: red;" />
+							</div>
+
+							<div class="form-group">
+								<label for="confirmedMail">Confirmer email *</label>
+								<h:inputSecret id="confirmedMail" required="true"
+									requiredMessage="Merci de confirmez votre mail"
+									class="form-control" />
+								<h:message for="confirmedMail" style="color: red;" />
+							</div>
+
+							<f:event listener="#{mBeanClient.validatePassword}"
+								type="postValidate" />
+							<div class="form-group">
+								<label for="pwd">Mot de passe *</label>
+								<h:inputSecret id="pwd" value="#{mBeanClient.user.password}"
+									required="true" requiredMessage="Entrez votre mot de passe"
+									class="form-control" />
+								<h:message for="pwd" style="color: red;" />
+							</div>
+							<div class="form-group">
+								<label for="confirmedPwd">Confirmer le mot de passe *</label>
+								<h:inputSecret id="confirmedPwd" required="true"
+									requiredMessage="Merci de confirmez votre mot de passe"
+									class="form-control" />
+								<h:message for="confirmedPwd" style="color: red;" />
+							</div>
+						</h:form>
+					</div>
+				</div>
+				<!-- 				fin col-6 -->
+				<div class="col-md-6">
+					<div class="box">
+
+						<div class="text-center">
+							<p class="lead">Vos coordonnées</p>
+						</div>
+						<hr />
+							<h:form>
+								<div class="form-group">
+									<label>Numéro *</label>
+									<h:inputText class="form-control"
+										value="#{mBeanClient.adress.number}" required="true" />
+								</div>
+								<div class="form-group">
+									<label>Rue *</label>
+									<h:inputText class="form-control"
+										value="#{mBeanClient.adress.street}" required="true" />
+								</div>
+								<div class="form-group">
+									<label>Complément d'adresse</label>
+									<h:inputText class="form-control" required="false" />
+								</div>
+								<div class="form-group">
+									<label>Ville * </label>
+									<div class="btn-group">
+										<h:selectOneMenu class="form-control"
+											value="#{mBeanClient.user.adress.id}">
+											<f:selectItems value="#{mBeanClient.cities}" />
+										</h:selectOneMenu>
+									</div>
+								</div>
+								<p class="text-muted">Un numéro de téléphone permettra à
+									notre Service Clients de vous contacter en cas de problème avec
+									votre commande</p>
+								<div class="form-group">
+									<label>Numéro de téléphone *</label>
+									<h:inputText value="#{mBeanClient.user.phonenumber}"
+										class="form-control" required="true" />
+								</div>
+
+								<div class="text-center">
+									<h:commandButton action="#{mBeanClient.addCustomer()}"
+										value="Créer mon compte" class="btn btn-primary"></h:commandButton>
+								</div>
+							</h:form>
+					</div>
+				</div>
+				<!-- 				fin col-6 -->
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /#content -->
+
+	</ui:define>
+</ui:composition>

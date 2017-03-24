@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/commons.xhtml">
+	<ui:define name="body">
+        <div id="content">
+            <div class="container">
+
+                <div class="col-md-12">
+
+                    <ul class="breadcrumb">
+                        <li><a href="index.jsf">Acceuil</a>
+                        </li>
+                        <li>S'inscrire / Se connecter</li>
+                    </ul>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="box">
+                        <h1>Mon compte</h1>
+
+                        <p class="lead">Pas encore inscrit ?</p>
+                        <p>Votre compte vous permet de bénéficier 24/24h, 7/7j de promotions et d'avantages exclusifs, d'accéder à vos services et de gagner du temps lors de vos prochaines commandes. </p>
+                        <hr/>
+
+                        <form action="customer-orders.html" method="post">
+                           
+                            <div class="text-center">
+                            <a href="pages/registerNewAccount.jsf" class="btn btn-primary">Créer mon Compte</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="box">
+                        <h1>Login</h1>
+
+                        <p class="lead">Vous avez déjà un compte ?</p>
+                        <p class="text-muted">Connetez-vous afin de passer votre commande, accéder à votre espace client, qui vous permet de suivre votre commande et gérer votre compte</p>
+
+                        <hr/>
+
+                        <h:form>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <h:inputText  class="form-control" id="email-modal" 
+                                       value="#{mBeanConnexion.userConnected.mail}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de pass</label>
+                                <h:inputSecret value="#{mBeanConnexion.userConnected.password}"  
+                                 class="form-control" id="password-modal"/>
+                            </div>
+                            <div class="text-center">
+                                 <h:commandButton action="#{mBeanCartManagement.connectedGoToCheckout1()}" value="Se connecter"  class="btn btn-primary"></h:commandButton>
+                            </div>
+                            <a class="text-muted">Mot de passe oublié?</a>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /#content -->
+
+	</ui:define>
+</ui:composition>

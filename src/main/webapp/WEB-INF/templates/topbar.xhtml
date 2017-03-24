@@ -1,0 +1,94 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" id="top">
+	<div class="container">
+		<div class="col-md-6 offer" data-animate="fadeInDown">
+			<a href="#" class="btn btn-success btn-sm" data-animate-hover="shake">Offre
+				spéciale aujourd'hui ! </a> <a href="#">10€ d'économies dès 200€
+				commandés</a>
+		</div>
+		<div class="col-md-6" data-animate="fadeInDown">
+			<form jsf:id="maform" jsf:prependId="false">
+				<ul class="menu">
+					<h:panelGroup
+						rendered="#{mBeanConnexion.userConnected.lastname == null}">
+						<li><a href="#" data-toggle="modal"
+							data-target="#login-modal">Se connecter</a></li>
+						<li><a href="pages/registerNewAccount.jsf">Inscription</a></li>
+					</h:panelGroup>
+					<h:panelGroup
+						rendered="#{mBeanConnexion.userConnected.lastname != null}">
+						<li><a href="#">Bonjour #{mBeanConnexion.userConnected.civility}
+								#{mBeanConnexion.userConnected.firstname}</a></li>
+						<!--<li><button jsf:action="#{mBeanConnexion.disconnect()}">Log out </button>
+                            </li>-->
+						<li><a href="#" jsf:action="#{mBeanConnexion.disconnect()}">Se
+								deconnecter</a></li>
+					</h:panelGroup>
+					<li><a href="pages/contact.jsf">Contact</a></li>
+					<li><a href="#">Vus récemment</a></li>
+				</ul>
+			</form>
+		</div>
+	</div>
+	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
+		aria-labelledby="Login" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">Fermer</button>
+					<h4 class="modal-title" id="Login">Identification client</h4>
+				</div>
+				<div class="modal-body">
+					<form jsf:id="form" jsf:prependId="false">
+						<h:panelGroup id="messages">
+							<h:outputFormat
+								rendered="#{mBeanConnexion.resultConnection  != null}" value="#{mBeanConnexion.invalidConnexion}">
+								<div>
+									<p>#{mBeanConnexion.invalidConnexion}</p>
+								</div>
+							</h:outputFormat>
+							<h:outputFormat
+								rendered="#{mBeanConnexion.resultConnection  == null}" value="" />
+						</h:panelGroup>
+						<div class="form-group">
+							<input type="text" class="form-control" jsf:id="email-modal"
+								placeholder="email"
+								jsf:value="#{mBeanConnexion.userConnected.mail}" />
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control"
+								jsf:id="password-modal" placeholder="password"
+								jsf:value="#{mBeanConnexion.userConnected.password}" />
+						</div>
+
+						<p class="text-center">
+							<button jsf:action="#{mBeanConnexion.connect()}"
+								class="btn btn-primary">
+								<i class="fa fa-sign-in"></i> Se connecter
+							</button>
+						</p>
+
+					</form>
+					<p class="text-center text-muted">
+						<a href="">Mot de passe oublié</a>
+					</p>
+					<p class="text-center text-muted">Pas encore inscrit ?</p>
+					<p class="text-center text-muted">
+						<a href="pages/registerNewAccount.jsf"><strong>Créez votre
+								compte</strong></a> ! pour commander plus vite et accéder aux services
+						personnalisés, aux cadeaux, aux avantages sur-mesure ...!
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- *** TOP BAR END *** -->
+
+

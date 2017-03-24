@@ -1,0 +1,215 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	template="/WEB-INF/templates/commons.xhtml">
+	<!--  <f:metadata>
+		<f:event listener="#{mBeanProduct.initExpensive()}" type="preRenderView"></f:event>
+	</f:metadata>   -->
+	<ui:param name="feed" value="#{mBeanProduct.expensiveProducts}" />
+	<ui:define name="body">
+		<form jsf:id="form1">
+			<div id="content">
+				<div class="container">
+					<div class="col-md-12">
+						<ul class="breadcrumb">
+							<li><a href="#">Accueil</a></li>
+							<li>Mon panier</li>
+						</ul>
+					</div>
+					<div class="col-md-9" id="basket">
+						<div class="box">
+							<h1>Mon panier</h1>
+							<h:panelGroup
+								rendered="#{mBeanCartManagement.order.ordersDetail.size() != 0}">
+								<p class="text-muted">
+									Votre panier contient
+									<h:outputText id="txtTotalQuantity"
+										value="#{mBeanCartManagement.calculerNumTotalQantity()}">
+										</h:outputText>
+									produits.
+								</p>
+								<h:panelGroup
+									rendered="#{mBeanCartManagement.validOrder == false}">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Produit</th>
+													<th>Quantite</th>
+													<th>Prix Unitaire</th>
+													<th>Reduction</th>
+													<th colspan="2">Totale</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<h:panelGroup id="myPanel">
+													<ui:repeat id="uiRepeatCart"
+														value="#{mBeanCartManagement.listOrderDetails}"
+														var="orderDetail">
+														<tr>
+															<td><a href="pages/article.jsf"> <img
+																	src="img/wine_pictures/#{orderDetail.productOrdered.apiId}/#{orderDetail.productOrdered.apiId}m.jpg"
+																	alt="#{orderDetail.productOrdered.name}" />
+															</a></td>
+															<td><input jsf:id="quantityProduct" type="number"
+																jsf:value="#{orderDetail.quantite}" class="form-control">
+															<f:ajax event="change" execute="@form" render="@form" />
+																</input></td>
+															<td><h:outputText
+																	value="#{orderDetail.productOrdered.price}€">
+																	  <f:convertNumber pattern="#0.00" />
+																</h:outputText></td>
+															<td><h:outputText
+																	value="#{mBeanCartManagement.calculDiscount(orderDetail)}€">
+																	<f:convertNumber pattern="#0.00" />
+																</h:outputText></td>
+															<td><h:outputText id="totalLine"
+																	value="#{mBeanCartManagement.calculTotalLine(orderDetail)}€">
+																<f:convertNumber pattern="#0.00" />
+																</h:outputText></td>
+															<td><h:commandLink
+																	action="#{mBeanCartManagement.removeProductCart(orderDetail)}">
+																	<i class="fa fa-trash-o"></i>
+																</h:commandLink></td>
+														</tr>
+													</ui:repeat>
+												</h:panelGroup>
+											</tbody>
+										</table>
+									</div>
+								</h:panelGroup>
+								<!-- /.table-responsive -->
+
+
+								<div class="box-footer">
+									<div class="pull-left">
+										<a href="index.jsf" class="btn btn-default"><i
+											class="fa fa-chevron-left"></i> Continue shopping</a>
+									</div>
+									<div class="pull-right">
+										<button class="btn btn-default">
+											<i class="fa fa-refresh"></i> Update basket
+										</button>
+										<h:commandButton
+											action="#{mBeanCartManagement.validePanier()}"
+											value="Valider et payer ma commande" class="btn btn-primary"></h:commandButton>
+									</div>
+								</div>
+							</h:panelGroup>
+
+							<!-- panel empty -->
+							<h:panelGroup
+								rendered="#{mBeanCartManagement.order.ordersDetail.size() == 0 }">
+								<h3>Votre panier est vide pour le moment. Remplissez le de
+									bonnes bouteilles et de bons produits...</h3>
+								<div class="box-footer">
+									<div class="pull-left">
+										<a href="index.jsf" class="btn btn-default"><i
+											class="fa fa-chevron-left"></i> Continuer mon shopping</a>
+									</div>
+									<div class="pull-right">
+										<button class="btn btn-default">
+											<i class="fa fa-refresh"></i> Actualiser mon panier
+										</button>
+										<button type="submit" class="btn btn-primary">
+											Valider et payer ma commande <i class="fa fa-chevron-right"></i>
+										</button>
+									</div>
+								</div>
+							</h:panelGroup>
+
+						</div>
+						 <!-- <form jsf:id="formselection">-->
+							<ui:include src="/WEB-INF/templates/threeProdSel.xhtml"></ui:include>
+						<!-- </form>-->
+					</div>
+					<!-- /.col-md-9 -->
+
+					<div class="col-md-3">
+						<h:panelGroup
+							rendered="#{mBeanCartManagement.order.ordersDetail != null}">
+							<div class="box" id="order-summary">
+								<div class="box-header">
+									<h3>Recapitulatif du panier</h3>
+								</div>
+								<p class="text-muted">Les Couts du transport et couts
+									additionnel sont calculees a partir des valeurs que vous avez
+									rentrees.</p>
+								<div class="table-responsive">
+									<table class="table" id="tabRecapOrder">
+										<tbody>
+											<tr>
+												<td>Sous total</td>
+												<th><h:outputText id="subTotal"
+														value="#{mBeanCartManagement.calculSubTotal()}€">
+														 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+											<tr>
+												<td>Frais de transport</td>
+												<th><h:outputText id="shipping"
+														value="#{mBeanCartManagement.caclulShippingFree()}€">
+														 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+											<tr>
+												<td>Tax</td>
+												<th>0.00€</th>
+											</tr>
+											<tr class="total">
+												<td>Total</td>
+												<th><h:outputText id="total"
+														value="#{mBeanCartManagement.calculTotal()}€">
+														 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</h:panelGroup>
+						<h:panelGroup
+							rendered="#{mBeanCartManagement.order.ordersDetail == null}">
+							<div class="box" id="order-summary">
+								<div class="box-header">
+									<h3>Order summary</h3>
+								</div>
+								<p class="text-muted">Les Couts du transport et couts
+									additionnel sont calculees a partir des valeurs que vous avez
+									rentrees.</p>
+								<div class="table-responsive">
+									<table class="table" id="tabRecapOrder">
+										<tbody>
+											<tr>
+												<td>prix articles</td>
+												<th>0.00€</th>
+											</tr>
+											<tr>
+												<td>Frais de transport</td>
+												<th>0.00€</th>
+											</tr>
+											<tr>
+												<td>Tax</td>
+												<th>0.00€</th>
+											</tr>
+											<tr class="total">
+												<td>Total</td>
+												<th>0.00€</th>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</h:panelGroup>
+					</div>
+				</div>
+				<!-- /.col-md-3 -->
+			</div>
+			<!-- /.container -->
+		</form>
+	</ui:define>
+</ui:composition>
+

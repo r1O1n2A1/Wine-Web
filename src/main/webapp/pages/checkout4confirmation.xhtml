@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/commons.xhtml">
+	
+	<ui:define name="body">
+	
+		<div id="content">
+
+			<div class="container">
+
+				<div class="col-md-12">
+					<ul class="breadcrumb">
+						<li><a href="index.jsf">Acceuil</a></li>
+						<li>Confirmation</li>
+					</ul>
+				</div>
+
+				<div class="col-md-12" id="checkout">
+
+					<div class="box">
+						<h:form>
+							<h1>Confirmation</h1>
+							<ul class="nav nav-pills nav-justified">
+								<li class="disabled"><a><i class="fa fa-map-marker"></i><br />Address</a></li>
+								<li class="disabled"><a><i class="fa fa-truck"></i><br />Mode
+										de livraison</a></li>
+								<li class="disabled"><a><i class="fa fa-money"></i><br />Mode
+										de paiement </a></li>
+								<li class="active"><a><i class="fa fa-eye"></i><br />Confirmation</a></li>
+							</ul>
+							<p>Chèr(e) client(e), votre commande a bien été prise en
+								compte, un mail de confirmation a été envoyé à votre adresse
+								email.</p>
+							<h3>
+								Numéro de Commande : CMD
+								<h:outputLabel value="#{mBeanCartManagement.lastOrder.id}" />
+							</h3>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Produit</th>
+											<th>Quantite</th>
+											<th>Prix Unitaire</th>
+											<th>Reduction</th>
+											<th colspan="2">Totale</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<h:panelGroup id="myPanel">
+											<ui:repeat id="uiRepeatCart"
+												value="#{mBeanCartManagement.listOrderDetails}"
+												var="orderDetail">
+												<tr>
+													<td><a href="pages/article.jsf"> <img
+															src="img/wine_pictures/#{orderDetail.productOrdered.apiId}/#{orderDetail.productOrdered.apiId}m.jpg"
+															alt="#{orderDetail.productOrdered.name}" />
+													</a></td>
+													<td><h:outputLabel id="quantityProduct"
+															value="#{orderDetail.quantite}">
+														</h:outputLabel></td>
+													<td><h:outputText
+															value="#{orderDetail.productOrdered.price}€">
+															 <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+														</h:outputText></td>
+													<td><h:outputText
+															value="#{mBeanCartManagement.calculDiscount(orderDetail)}€">
+															 <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+														</h:outputText></td>
+													<td><h:outputText id="totalLine"
+															value="#{mBeanCartManagement.calculTotalLine(orderDetail)}€">
+															 <f:convertNumber minFractionDigits="2" maxIntegerDigits="2" />
+														</h:outputText></td>
+												</tr>
+											</ui:repeat>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>Sous total</td>
+												<th><h:outputText id="subTotal"
+														value="#{mBeanCartManagement.calculSubTotal()}€">
+														 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>Frais de transport</td>
+												<th><h:outputText id="shipping"
+														value="#{mBeanCartManagement.order.ordersDetail.size()*1.5}€">
+														 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+											<tr class="total">
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>Total</td>
+												<th><h:outputText id="total"
+														value="#{mBeanCartManagement.calculTotal() + mBeanCartManagement.order.ordersDetail.size()*1.5}€">
+													 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+										</h:panelGroup>
+									</tbody>
+								</table>
+
+							</div>
+							<!-- /.table-responsive -->
+
+						</h:form>
+
+					</div>
+					<!-- /.box -->
+
+				</div>
+				<!-- /.col-md-12 -->
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /#content -->
+
+	</ui:define>
+</ui:composition>

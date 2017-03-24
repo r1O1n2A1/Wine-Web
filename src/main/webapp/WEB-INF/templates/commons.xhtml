@@ -1,0 +1,77 @@
+<!DOCTYPE html [
+    <!ENTITY laquo "&#171;">
+    <!ENTITY raquo "&#187;">
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">    
+	<!-- <f:metadata>
+		<f:event listener="#{mBeanConnexion.initPath()}" type="preRenderView"></f:event>
+	</f:metadata>   -->
+	<head jsf:id="head">
+		<base href="#{request.requestURL.substring(0, request.requestURL.length() - request.requestURI.length())}#{request.contextPath}/" />
+		<meta charset="utf-8" />
+		<meta name="robots" content="all,follow" />
+		<meta name="googlebot" content="index,follow,snippet,archive" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="WineMania" />
+		<meta name="author" content="TeamWine" />
+		<meta name="keywords" content="" />
+		<title>WineMania - <ui:insert name="pageTitle">Vente du vin en ligne</ui:insert>
+		</title>
+		<meta name="keywords" content="" />
+		<!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100' rel='stylesheet' type='text/css' />-->
+		<link href="css/font-awesome.css" rel="stylesheet" />
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/animate.min.css" rel="stylesheet" />
+		<link href="css/owl.carousel.css" rel="stylesheet" />
+		<link href="css/owl.theme.css" rel="stylesheet" />
+		<!-- theme stylesheet -->
+		<link href="css/style.violet.css" rel="stylesheet" id="theme-stylesheet" />
+		<!-- your stylesheet with modifications -->
+		<link href="css/custom.css" rel="stylesheet" />
+		<script src="js/respond.min.js"></script>
+		<link rel="shortcut icon" href="favicon.png" />
+		<ui:insert name="pageMetaData"></ui:insert>
+	</head>
+	<body jsf:id="body">
+		<f:view>
+			<div>
+				<ui:insert name="header">
+					<ui:include src="/WEB-INF/templates/header.xhtml" />
+				</ui:insert>
+			</div>
+			<div>
+				<div id="content">
+					<ui:insert name="body"></ui:insert>
+				</div>
+			</div>
+			<div>
+				<ui:insert name="footer">
+					<ui:include src="/WEB-INF/templates/footer.xhtml" />
+				</ui:insert>
+				<div id="copyright">
+					<div class="container">
+						<div class="col-md-6">
+							<p class="pull-left">© 2016 WineMania</p>
+						</div>
+						<div class="col-md-6">
+							<p class="pull-right"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</f:view>
+	</body>
+	<!-- *** SCRIPTS TO INCLUDE *** -->
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/waypoints.min.js"></script>
+	<script src="js/modernizr.js"></script>
+	<script src="js/bootstrap-hover-dropdown.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/front.js"></script>
+</html>

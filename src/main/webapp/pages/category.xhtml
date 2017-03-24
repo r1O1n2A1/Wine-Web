@@ -1,0 +1,98 @@
+<!DOCTYPE html [
+    <!ENTITY laquo "&#171;">
+    <!ENTITY raquo "&#187;">
+]>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	template="/WEB-INF/templates/commons.xhtml">
+	<ui:define name="body">
+
+		<form jsf:id="form1">
+			<div class="container">
+
+				<div class="col-md-12">
+
+					<ul class="breadcrumb">
+						<li><a href="index.jsf">Accueil</a></li>
+						<li>Catégories</li>
+					</ul>
+
+					<div class="box">
+						<h2>#{mBeanProduct.currentProdType.type}</h2>
+						<p>#{mBeanProduct.subSelectionTypeLabel}</p>
+					</div>
+
+					<div class="box info-bar">
+						<div class="row">
+							<div class="col-sm-12 col-md-4 products-showing">
+								Affichage de <strong>#{mBeanProduct.winesList.size()}</strong> articles sur un total de <strong>#{mBeanProduct.totalRows}</strong>
+							</div>
+
+							<div class="col-sm-12 col-md-8  products-number-sort">
+								<div class="row">
+									<!-- <div class="col-md-6 col-sm-6">
+										<div class="products-number">
+											<strong>Show</strong> <a
+												jsf:action="#{mBeanProduct.rowsPerPage}"
+												class="btn btn-default btn-sm">4</a> <a
+												jsf:action="#{mBeanProduct.rowsPerPage}"
+												class="btn btn-default btn-sm btn-primary">8</a> <a
+												jsf:action="#{mBeanProduct.rowsPerPage}"
+												class="btn btn-default btn-sm">12</a> <a
+												jsf:action="#{mBeanProduct.rowsPerPage}"
+												class="btn btn-default btn-sm">Tous</a> articles
+											
+										</div>
+									</div>-->
+									<div class="col-md-9 col-sm-9"></div>
+									<div class="col-md-3 col-sm-3">
+										<!-- <div class="products-sort-by">
+											<strong>Trié par</strong>
+											<h:selectOneMenu>
+												<f:selectItem itemValue="price" itemLabel="Prix" />
+												<f:selectItem itemValue="name" itemLabel="Nom" />
+												<f:selectItem itemValue="sale" itemLabel="Promo" />
+											</h:selectOneMenu>
+										</div>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="box">
+						<div class="row products">
+							<ui:repeat var="product" value="#{mBeanProduct.winesList}">
+								<div class="col-md-3 col-sm-6">
+									<ui:include src="/WEB-INF/templates/product.xhtml" />
+								</div>
+							</ui:repeat>
+
+						</div>
+					</div>
+					<!-- /.products -->
+					<div class="pages">
+						<ul class="pagination">
+							<li><a jsf:action="#{mBeanProduct.pageFirst()}"
+								disabled="#{mBeanProduct.firstRow == 0}">&laquo;</a></li>
+							<ui:repeat value="#{mBeanProduct.pages}" var="page">
+								<li class="active"
+									jsf:rendered="#{page == mBeanProduct.currentPage}"><a
+									jsf:actionListener="#{mBeanProduct.page}" value="#{page}" /></li>
+								<li jsf:rendered="#{page != mBeanProduct.currentPage}"><a
+									jsf:actionListener="#{mBeanProduct.page}" value="#{page}" /></li>
+							</ui:repeat>
+							<li><a jsf:action="#{mBeanProduct.pageLast}"
+								disabled="#{mBeanProduct.firstRow + myBean.rowsPerPage &gt;= mBeanProduct.totalRows}">
+									&raquo; </a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- /.col-md-12 -->
+			</div>
+		</form>
+	</ui:define>
+</ui:composition>

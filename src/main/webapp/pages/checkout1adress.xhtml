@@ -1,0 +1,343 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	template="/WEB-INF/templates/commons.xhtml">
+	<ui:define name="body">
+		<div id="content">
+			<div class="container">
+				<div class="col-md-12">
+					<ul class="breadcrumb">
+						<li><a href="index.jsf">Accueil</a></li>
+						<li>Livraison - vérification d'adresse</li>
+					</ul>
+				</div>
+				<div class="col-md-9" id="checkout">
+					<div class="box">
+						<form jsf="h:form" id="Form">
+							<h3>Adresse de livraison :</h3>
+							<ul class="nav nav-pills nav-justified">
+								<li class="active"><a href="#"><i
+										class="fa fa-map-marker"></i><br />Address</a></li>
+								<li class="disabled"><a href="#"><i class="fa fa-truck"></i><br />Mode
+										de livraison</a></li>
+								<li class="disabled"><a href="#"><i class="fa fa-money"></i><br />Mode
+										de paiement </a></li>
+								<li class="disabled"><a href="#"><i class="fa fa-eye"></i><br />Confirmation</a></li>
+							</ul>
+							<div class="content">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<h3>Adress de Livraison</h3>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<h3>Adress de facturation</h3>
+										</div>
+									</div>
+								</div>
+								<!-- /.row -->
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="col-md-6">
+											<div class="row">
+												<div class="col-md-3">
+													<p class="text-uppercase">
+														<h:outputText
+															value="#{mBeanConnexion.userConnected.lastname}"/>
+													</p>
+												</div>
+												<div class="col-md-3">
+													<p class="text-justify">
+														<h:outputText
+															value="#{mBeanConnexion.userConnected.firstname}" />
+													</p>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-1">
+													<p class="text-justify">
+														<h:outputText
+															value="#{mBeanConnexion.userConnected.adress.number}" />
+													</p>
+												</div>
+												<div class="col-md-5">
+													<p class="text-justify">
+														<h:outputText
+															value="#{mBeanConnexion.userConnected.adress.street}" />
+													</p>
+												</div>
+											</div>
+											<p class="text-justify">
+												<h:outputText
+													value="#{mBeanConnexion.userConnected.adress.city.zipcode}" />
+											</p>
+											<p class="text-justify">
+												<h:outputText
+													value="#{mBeanConnexion.userConnected.adress.city.name}" />
+											</p>
+											<p class="text-justify">
+												<h:outputText value="France" />
+											</p>
+											<button data-target="#modiflivraison" data-toggle="collapse"
+												class="btn btn-primary" type="button">
+												Modifier adresse livraison<i class="fa fa-chevron-bottom"></i>
+											</button>
+										</div>
+										<div class="col-md-6">
+											<div class="row">
+												<div class="col-md-3">
+													<p class="text-uppercase">
+														<h:outputText
+															value="#{mBeanConnexion.userConnected.lastname}" />
+													</p>
+												</div>
+												<div class="col-md-3">
+													<p class="text-justify">
+														<h:outputText
+															value="#{mBeanConnexion.userConnected.firstname}" />
+													</p>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-1">
+													<p class="text-justify">
+														<h:outputText
+															value="#{mBeanConnexion.userConnected.adress.number}" />
+													</p>
+												</div>
+												<div class="col-md-5">
+													<p class="text-justify">
+														<h:outputText
+															value="#{mBeanConnexion.userConnected.adress.street}" />
+													</p>
+												</div>
+											</div>
+											<p class="text-justify">
+												<h:outputText
+													value="#{mBeanConnexion.userConnected.adress.city.zipcode}" />
+											</p>
+											<p class="text-justify">
+												<h:outputText
+													value="#{mBeanConnexion.userConnected.adress.city.name}" />
+											</p>
+											<p class="text-justify">
+												<h:outputText value="France" />
+											</p>
+											<button data-target="#modiffacturation"
+												data-toggle="collapse" class="btn btn-primary" type="button">
+												Modifier adresse facturation<i class="fa fa-chevron-bottom"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<!-- /.row -->
+								<div id="modiflivraison" class="collapse clearfix">
+									<div class="row">
+										<h3>Merci de saisir votre nouvelle adresse de livraison</h3>
+									</div>
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="number">Numero </label> <input type="text"
+													class="form-control" id="number" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="street">Rue</label> <input type="text"
+													class="form-control" id="street" />
+											</div>
+										</div>
+
+									</div>
+									<!-- /.row -->
+
+									<div class="row">
+										<div class="col-sm-6 col-md-3">
+											<div class="form-group">
+												<label for="city">Ville</label> <input type="text"
+													class="form-control" id="city" />
+											</div>
+										</div>
+										<div class="col-sm-6 col-md-3">
+											<div class="form-group">
+												<label for="Code postal">Code postal</label> <input
+													type="text" class="form-control" id="Code postal" />
+											</div>
+										</div>
+										<div class="col-sm-6 col-md-3">
+											<div class="form-group">
+												<label for="country">Pays</label> <input type="text"
+													class="form-control" id="county" />
+											</div>
+										</div>
+									</div>
+									<!-- /.row -->
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="phone">Télephone</label> <input type="text"
+													class="form-control" id="phone" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="email">Email</label> <input type="text"
+													class="form-control" id="email" />
+											</div>
+										</div>
+									</div>
+									<!-- /.row -->
+								</div>
+								<!-- /content modif livraison-->
+								<!-- /.row -->
+								<div id="modiffacturation" class="collapse clearfix">
+									<div class="row">
+										<h3>Votre nouvelle adresse de Facturation</h3>
+									</div>
+									<div class="row">
+										<div class="col-sm-2">
+											<div class="form-group">
+												<label for="number">Numero </label>
+												<h:inputText
+													value="#{mBeanConnexion.userConnected.adress.number}"
+													class="form-control" id="number" />
+											</div>
+										</div>
+										<div class="col-sm-10">
+											<div class="form-group">
+												<label for="street">Rue</label>
+												<h:inputText
+													value="#{mBeanConnexion.userConnected.adress.street}"
+													class="form-control" id="street" />
+											</div>
+										</div>
+
+									</div>
+									<!-- /.row -->
+
+									<div class="row">
+										<div class=" col-md-3">
+											<div class="form-group">
+												<label for="Code postal">Code postal</label>
+												<h:inputText
+													value="#{mBeanConnexion.userConnected.adress.city.zipcode}"
+													class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="city">Ville</label>
+												<h:inputText
+													value="#{mBeanConnexion.userConnected.adress.city.name}"
+													class="form-control" id="city" />
+											</div>
+										</div>
+
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="country">Pays</label>
+												<h:inputText value="France" class="form-control" id="county" />
+											</div>
+										</div>
+									</div>
+									<!-- /.row -->
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="phone">Télephone</label> <input type="text"
+													class="form-control" id="phone" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="email">Email</label> <input type="text"
+													class="form-control" id="email" />
+											</div>
+										</div>
+									</div>
+									<!-- /.row -->
+									<div class="row">
+
+										<a data-target="#modiffacturation" data-toggle="collapse"
+											class="btn btn-default">Annuler</a>
+
+									</div>
+								</div>
+								<!-- /content modif facturation-->
+							</div>
+						</form>
+						<h:form>
+							<div class="box-footer">
+								<div class="pull-left">
+									<a href="pages/basket.jsf" class="btn btn-default"><i
+										class="fa fa-chevron-left"></i>Retourner au panier</a>
+								</div>
+
+								<div class="pull-right">
+									<h:commandButton
+										action="#{mBeanCartManagement.validerAdresse()}"
+										value="Valider et aller à la page de livraison" class="btn btn-primary"></h:commandButton>
+								</div>
+							</div>
+						</h:form>
+					</div>
+					<!-- /.box -->
+
+
+				</div>
+				<!-- /.col-md-9 -->
+
+				<div class="col-md-3">
+
+					<div class="box" id="order-summary">
+								<div class="box-header">
+									<h3>Recapitulatif du panier</h3>
+								</div>
+								<p class="text-muted">Les Couts du transport et couts
+									additionnel sont calculees a partir des valeurs que vous avez
+									rentrees.</p>
+								<div class="table-responsive">
+									<table class="table" id="tabRecapOrder">
+										<tbody>
+											<tr>
+												<td>Sous total</td>
+												<th><h:outputText id="subTotal"
+														value="#{mBeanCartManagement.calculSubTotal()}€">
+														 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+											<tr>
+												<td>Frais de transport</td>
+												<th><h:outputText id="shipping"
+														value="#{mBeanCartManagement.caclulShippingFree()}€">
+														 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+											<tr>
+												<td>Tax</td>
+												<th>0.00€</th>
+											</tr>
+											<tr class="total">
+												<td>Total</td>
+												<th><h:outputText id="total"
+														value="#{mBeanCartManagement.calculTotal()}€">
+														 <f:convertNumber minFractionDigits="2" />
+													</h:outputText></th>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+				</div>
+				<!-- /.col-md-3 -->
+			</div>
+			<!-- /.container -->
+		</div>
+	</ui:define>
+</ui:composition>
