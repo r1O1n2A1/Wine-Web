@@ -96,8 +96,7 @@ public class MBeanProduct implements Serializable {
             try {
                 promotedWinesList = buProduct.getPromotedProductsSelection();
             } catch (WineException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                log.error(e.getErreurVin() + "|" + e.getMessage());
             }
         }
 
@@ -110,15 +109,14 @@ public class MBeanProduct implements Serializable {
                 pricesRepartition = buProduct.getPricesRepartitionByType(wineTypes);
                 log.info(appellations);
             } catch (WineException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            	log.error(e.getErreurVin() + "|" + e.getMessage());
             }
         }
         if (expensiveProducts == null) {
             try {
                 expensiveProducts = buProduct.findExpensive(500.0);
             } catch (WineException e) {
-                e.printStackTrace();
+            	log.error(e.getErreurVin() + "|" + e.getMessage());
             }
         }
     }
@@ -177,7 +175,6 @@ public class MBeanProduct implements Serializable {
         getWinesList();
         str = UtilFindPath.findURLPath("category.jsf");
         return str;
-
     }
 
     private void loadList() {

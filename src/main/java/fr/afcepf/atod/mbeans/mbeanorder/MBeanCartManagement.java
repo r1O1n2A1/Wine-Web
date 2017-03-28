@@ -327,7 +327,11 @@ public class MBeanCartManagement implements Serializable {
 	 * */
 	public Order getLastOrder(Customer customer){
 		customer = (Customer) mBeanConnexion.getUserConnected();
-		lastOrder = buOrder.getLastOrderByCustomer(customer);	
+		try {
+			lastOrder = buOrder.getLastOrderByCustomer(customer);
+		} catch (WineException e) {
+			log.error(e.getErreurVin() + "|" + e.getMessage());
+		}	
 		return lastOrder;
 	}    
 
