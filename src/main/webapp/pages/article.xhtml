@@ -15,22 +15,28 @@
                             <div class="flip-container">
                                 <div class="flipper">
                                     <div class="front">
-                                        <a href="javascript:void(0)"> <img
-                                                src="img/wine_pictures/#{mBeanProduct.currentProd.apiId}/#{mBeanProduct.currentProd.apiId}_front.jpg"
-                                                alt="" class="img-responsive center-block" />
+                                        <a href="javascript:void(0)">                                         
+										<ui:repeat var="image" value="#{mBeanProduct.currentProd.imgsWS.subList(1,2)}">
+											<img alt="" class="img-responsive center-block" 
+												src="data:image/jpg;base64,#{image}" />
+										</ui:repeat>
                                         </a>
                                     </div>
                                     <div class="back">
-                                        <a href="javascript:void(0)"> <img
-                                                src="img/wine_pictures/#{mBeanProduct.currentProd.apiId}/#{mBeanProduct.currentProd.apiId}_back.jpg"
-                                                alt="" class="img-responsive center-block" />
+                                        <a href="javascript:void(0)"> 
+										<ui:repeat var="image" value="#{mBeanProduct.currentProd.imgsWS.subList(0,1)}">
+											<img alt="" class="img-responsive center-block" 
+												src="data:image/jpg;base64,#{image}" />
+										</ui:repeat>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#javascript:void(0)" class="invisible"> <img
-                                    src="img/wine_pictures/#{mBeanProduct.currentProd.apiId}/#{mBeanProduct.currentProd.apiId}_front.jpg"
-                                    alt="" class="img-responsive center-block" />
+                            <a href="#javascript:void(0)"> 
+										<ui:repeat var="image" value="${mBeanProduct.currentProd.imgsWS.subList(1,2)}">
+											<img alt="" class="img-responsive center-block" 
+												src="data:image/jpg;base64,#{image}" />
+										</ui:repeat>
                             </a>
                             <h:panelGroup layout="block" class="ribbon sale"
                                           rendered="#{product.speEvent!=null}">
@@ -53,7 +59,10 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <a href="javascript:void(0);" class="thumb">
-                                       	<img src="img/wine_pictures/#{mBeanProduct.currentProd.apiId}/#{mBeanProduct.currentProd.images.split('\\|')[0]}" alt="" class="img-responsive center-block"/>
+													<ui:repeat var="image" value="${mBeanProduct.currentProd.imgsWS.subList(2,3)}">
+											<img alt="" class="img-responsive center-block" 
+												src="data:image/jpg;base64,#{image}" />
+										</ui:repeat>
                                     </a>
                                 </div>
                                 <div class="col-sm-4">
@@ -69,14 +78,14 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <a href="javascript:void(0);" class="thumb">
-                                       	<img src="img/wine_pictures/#{mBeanProduct.currentProd.apiId}/#{mBeanProduct.currentProd.images.split('\\|')[1]}" alt="" class="img-responsive center-block"/>
+                                    <ui:repeat var="image" value="${mBeanProduct.currentProd.imgsWS.subList(3,4)}">
+											<img alt="" class="img-responsive center-block" 
+												src="data:image/jpg;base64,#{image}" />
+										</ui:repeat>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <ui:repeat var="image" value="#{mBeanProduct.currentProd.images.split('\\|')}">
-
-                        </ui:repeat>
                     </div>
                 </div>
                 <div class="box" id="details">

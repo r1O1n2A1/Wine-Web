@@ -9,23 +9,35 @@
 			<div class="front">
 				<a jsf:action="#{mBeanProduct.article}"> 
 				<f:param name="product"  value="${product.idProduct}" />
-				<img src="img/wine_pictures/#{product.apiId}/#{product.apiId}_front.jpg"
-					alt="" class="img-responsive center-block" />
+				<ui:repeat var="image" value="${product.imgsWS.subList(1,2)}">
+						<img alt="" class="img-responsive center-block" 
+						src="data:image/jpg;base64,#{image}" />
+				</ui:repeat>
+<!-- 				<img src="img/wine_pictures/#{product.apiId}/#{product.apiId}_front.jpg" -->
+<!-- 					alt="" class="img-responsive center-block" /> -->
 				</a>
 			</div>
 			<div class="back">
 				<a jsf:action="#{mBeanProduct.article}"> 
 				<f:param name="product"  value="${product.idProduct}" />
-				<img src="img/wine_pictures/#{product.apiId}/#{product.apiId}_back.jpg"
-					alt="" class="img-responsive center-block" />
+				<ui:repeat var="image" value="${product.imgsWS.subList(0,1)}">
+						<img alt="" class="img-responsive center-block" 
+						src="data:image/jpg;base64,#{image}" />
+				</ui:repeat>
+<!-- 				<img src="img/wine_pictures/#{product.apiId}/#{product.apiId}_back.jpg" -->
+<!-- 					alt="" class="img-responsive center-block" /> -->
 				</a>
 			</div>
 		</div>
 	</div>
 	<a jsf:action="#{mBeanProduct.article}" class="invisible">
 		<f:param name="product"  value="${product.idProduct}" />
-		<img src="img/wine_pictures/#{product.apiId}/#{product.apiId}_front.jpg"
-		alt="" class="img-responsive center-block" />
+		<ui:repeat var="image" value="${product.imgsWS.subList(1,2)}">
+						<img alt="" class="img-responsive center-block" 
+						src="data:image/jpg;base64,#{image}" />
+				</ui:repeat>
+<!-- 		<img src="img/wine_pictures/#{product.apiId}/#{product.apiId}_front.jpg" -->
+<!-- 		alt="" class="img-responsive center-block" /> -->
 	</a>
 	<div class="text">
 		<h3>
