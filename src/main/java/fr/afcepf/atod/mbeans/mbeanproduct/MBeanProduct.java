@@ -64,6 +64,7 @@ public class MBeanProduct implements Serializable {
 	private List<ProductWine> promotedWinesList;
 	private List<ProductType> wineTypes;
 	private List<Product> expensiveProducts;
+	private List<ProductWine> expensiveWines;
 	private List<ProductWine> threeSimilarProductsList;
 	private Map<ProductType, List<String>> appellations;
 	private Map<ProductType, List<ProductVarietal>> varietals;
@@ -136,8 +137,16 @@ public class MBeanProduct implements Serializable {
 		if (expensiveProducts == null) {
 			try {
 				expensiveProducts = buProduct.findExpensive(500.0);
-			} catch (WineException e) {
+				expensiveWines = (List<ProductWine>) (List<?>) expensiveProducts;
+				for (ProductWine wine : expensiveWines) {    
+					Map<String,String> imagesWS = proxy.downloadImages(wine.getApiId().toString());
+					List<String> orderedImages = orderImgsFromWS(imagesWS, wine.getApiId().toString());
+					wine.setImgsWS(orderedImages);
+				}
+			} catch (WineException  e) {
 				log.error(e.getErreurVin() + "|" + e.getMessage());
+			} catch (WineServerUtilException_Exception e) {
+				log.error(e);
 			}
 		}
 	}
@@ -215,7 +224,7 @@ public class MBeanProduct implements Serializable {
 	 * @param imagesWS Map from the WS key-name / Value-content
 	 * @return
 	 */
-	private List<String> orderImgsFromWS(Map<String, String> imagesWS, String idImg) {
+	public List<String> orderImgsFromWS(Map<String, String> imagesWS, String idImg) {
 		String[] orderedImgs = new String[4];
 		for (String key : imagesWS.keySet()) {
 			if (key.contains(UtilParameters.BACK_IMG)) {
@@ -502,4 +511,15 @@ public class MBeanProduct implements Serializable {
 		return pricesRepartition;
 	}
 
+	public List<ProductWine> getExpensiveWines() {
+		return expensiveWines;
+	}
+
+	public void setExpensiveWines(List<ProductWine> expensiveWines) {
+		this.expensiveWines = expensiveWines;
+	}
+
+	public void setThreeSimilarProductsList(List<ProductWine> threeSimilarProductsList) {
+		this.threeSimilarProductsList = threeSimilarProductsList;
+	}
 }

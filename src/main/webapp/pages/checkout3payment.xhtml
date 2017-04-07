@@ -31,7 +31,6 @@
 							</ul>
 
 							<div class="content">
-
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="box payment-method">
@@ -43,7 +42,7 @@
 													<label>Numero de la carte *</label>
 												</div>
 												<div class="col-xs-4">
-													<h:inputText value="" class="form-control" />
+													
 												</div>
 											</div>
 											<br />
@@ -72,13 +71,52 @@
 											<br />
 											<p>* Champs obligatoires</p>
 											<div class="row">
-												<div class="col-sm-8">
-													<!-- 													<p>Ce bouton vaut pour validation de votre commande, de -->
-													<!-- 														son mode de paiement et de l'acceptation de nos conditions -->
-													<!-- 														générales de vente</p> -->
-												</div>
+												<h:panelGroup>
+													<h:form>
+														<div class="pull-right">
+															<h:commandButton
+																action="#{mBeanCartManagement.addNewOrder()}"
+																value="Valider et payer ma commande manuellement"
+																class="btn btn-primary"></h:commandButton>
+														</div>
+													</h:form>
+												</h:panelGroup>
 											</div>
 										</div>
+									</div>
+									
+									<div class="col-sm-12">
+										<div class="box payment-method">
+                                            <h4>Paypal</h4>
+                                            <p>We like it all.</p>
+                                            <div class="box-footer text-center">
+                                                <!-- PayPal Logo -->
+                                                <table border="0" cellpadding="10" 
+                                                	cellspacing="0" align="center">
+                                                	<tbody>
+                                                		<tr>
+                                                			<td align="center"></td>
+                                                			</tr>
+                                                		<tr>
+	                                                		<td align="center">
+<!-- 	                                                			<a title="PayPal Comment Ca Marche" > -->
+<!-- 															<form jsf:id="paymentForm"> -->
+<!-- 	                                                			<a jsf:action="#{mBeanCartManagement.checkoutWithPaypal}">  -->
+<!--                                                 				onclick="javascript:window.open('https://www.paypal.com/fr/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"> --> 
+<!-- 	                                                				<img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_moyens_paiement_fr.jpg" border="0" alt="PayPal Acceptance Mark" /> -->
+<!-- 	                                                			</a> -->
+<!-- 	                                                		</form> -->
+<!-- 																							onclick="#{mBeanCartManagement.checkoutWithPaypal()}" -->
+																<h:commandButton type="submit" onclick=""
+																	image="img/logoPaypal.png">
+<!-- 																	<img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_moyens_paiement_fr.jpg" border="0" alt="PayPal Acceptance Mark" /> -->
+																</h:commandButton>
+	                                                		</td>
+	                                                	</tr>
+	                                                </tbody>
+	                                              </table><!-- PayPal Logo -->
+                                            </div>
+                                        </div>
 									</div>
 								</div>
 								<!-- /.row -->
@@ -94,8 +132,8 @@
 											class="fa fa-chevron-left"></i>Retourne à la page avant</a>
 									</div>
 									<div class="pull-right">
-										<h:commandButton action="#{mBeanCartManagement.addNewOrder()}"
-											value="Valider et payer ma commande" class="btn btn-primary"></h:commandButton>
+										<h:commandButton action="#{mBeanCartManagement.checkoutWithPaypal()}"
+											value="Valider et payer ma commande par paypal" class="btn btn-primary"></h:commandButton>
 									</div>
 								</div>
 							</h:form>

@@ -5,6 +5,19 @@
  */
 package fr.afcepf.atod.mbeans.mbeanorder;
 
+import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.apache.log4j.Logger;
+
 import fr.afcepf.atod.mbeans.mbeanproduct.MBeanProduct;
 import fr.afcepf.atod.mbeans.mbeanuser.MBeanConnexion;
 import fr.afcepf.atod.util.SingletonSessionOrderTemp;
@@ -19,16 +32,6 @@ import fr.afcepf.atod.wine.entity.OrderDetail;
 import fr.afcepf.atod.wine.entity.PaymentInfo;
 import fr.afcepf.atod.wine.entity.Product;
 import fr.afcepf.atod.wine.entity.ShippingMethod;
-import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import org.apache.log4j.Logger;
 
 @SessionScoped
 @ManagedBean(name = "mBeanCartManagement")
@@ -54,8 +57,10 @@ public class MBeanCartManagement implements Serializable {
 	private MBeanConnexion mBeanConnexion;
 	private boolean validOrder;
 	private Customer customer = new Customer();
-	
-	DecimalFormat df = new DecimalFormat ( ) ;
+	private double totalLine;
+	private double shipping;
+	private double total;
+	DecimalFormat df = new DecimalFormat("0.##");;
 	
 
 	public MBeanCartManagement() {
@@ -70,18 +75,17 @@ public class MBeanCartManagement implements Serializable {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public String addProductCart() {
+	public String addProductCart(Product product) {
 		String page = null;
 		validOrder = false;
 		String id = UtilDefParam.getProductParam(FacesContext.getCurrentInstance());
-		Product product = null;
 		try {
 			product = mBeanProduct.getBuProduct()
 					.findById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {			
-			e.printStackTrace();
+			log.error(e);
 		} catch (WineException e) {			
-			e.printStackTrace();
+			log.error(e);
 		}
 		if (!product.getName().equalsIgnoreCase("")
 				&& product.getPrice() >= 0
@@ -94,6 +98,10 @@ public class MBeanCartManagement implements Serializable {
 
 				}
 				order = buOrder.addItemCart(order, product);
+//				ProductWine wine = (ProductWine) product;
+//				Map<String,String> imagesWS = proxy.downloadImages(wine.getApiId().toString());
+//				List<String> orderedImages = mBeanProduct.orderImgsFromWS(imagesWS, wine.getApiId().toString());
+//				wine.setImgsWS(orderedImages);
 				listOrderDetails = UtilConverter.retrieveListAsSet(order.getOrdersDetail());
 
 				/*The symptoms indicate that the page was requested by a POST request and that
@@ -126,7 +134,19 @@ public class MBeanCartManagement implements Serializable {
 		}
 		return page;
 	}
-
+	
+	public void checkoutWithPaypal() {
+		df = new DecimalFormat("0.##");
+		if (order != null && order.getOrdersDetail() != null) {
+			// call business layer
+			try {
+				buOrder.checkoutPaypal(order,Double.parseDouble(df.format(shipping)),
+						Double.parseDouble(df.format(total)));
+			} catch (WineException e) {
+				log.error(e);
+			}
+		}
+	}
 
 	/**
 	 * supprimer une ligne de commande
@@ -164,7 +184,7 @@ public class MBeanCartManagement implements Serializable {
 //			Double.parseDouble(df.format(discount));
 			
 		}
-		return discount ;
+		return Double.parseDouble(df.format(discount)) ;
 	}
 
 	/**
@@ -173,12 +193,12 @@ public class MBeanCartManagement implements Serializable {
 	 * @return
 	 */
 	public double calculTotalLine(OrderDetail orderDetail) {
-		double totalLine = 0.0;
+		totalLine = 0.0;
 		if (orderDetail != null) {
 			totalLine = orderDetail.getQuantite()
 					* (orderDetail.getProductOrdered().getPrice() - calculDiscount(orderDetail));
 		}
-		return totalLine;
+		return Double.parseDouble(df.format(totalLine));
 	}
 
 	/**
@@ -192,7 +212,7 @@ public class MBeanCartManagement implements Serializable {
 			}
 		}
 
-		return subTotal;
+		return Double.parseDouble(df.format(subTotal));
 	}
 
 	/**
@@ -218,12 +238,12 @@ public class MBeanCartManagement implements Serializable {
 	 * @return
 	 */
 	public double caclulShippingFree() {
-		double shipping = 0.0;
+		shipping = 0.0;
 		//        if (calculerNumTotalQantity() != 0.0 & order.getShippingMethod().getId()==1) 
 		if (calculerNumTotalQantity() != 0.0) {
 			shipping = calculerNumTotalQantity() * 1.5;
 		}
-		return shipping;
+		return Double.parseDouble(df.format(shipping));
 	}
 
 	/**
@@ -233,11 +253,12 @@ public class MBeanCartManagement implements Serializable {
 	 * @return
 	 */
 	public double calculTotal() {
-		double subtotal = 0.0;
+		total = 0.0;
 		for (OrderDetail o : order.getOrdersDetail()) {
-			subtotal = subtotal + calculTotalLine(o);
+			total = total + calculTotalLine(o);
 		}
-		return subtotal + caclulShippingFree();
+		total = total + caclulShippingFree();
+		return Double.parseDouble(df.format(total));
 	}
 
 
@@ -341,13 +362,6 @@ public class MBeanCartManagement implements Serializable {
 
 
 	//  ######################################################## //
-	/**
-	 * ********************************************************
-	 * Methode pour initialiser le panier pour faire le parcours
-	 * panier/validation paiement/.
-	 * *
-	 * @return *******************************************************
-	 */
 
 
 	public Order getOrder() {

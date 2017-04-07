@@ -62,8 +62,8 @@
 		</p>		
 
 		<p class="buttons"> 
-			<a jsf:action="#{mBeanCartManagement.addProductCart}" class="btn btn-primary">
-				<f:param name="product"  value="${product.idProduct}" />
+			<f:param name="product"  value="${product}" />
+			<a jsf:action="#{mBeanCartManagement.addProductCart(product)}" class="btn btn-primary">				
 				<i class="fa fa-shopping-cart"></i>Ajouter au panier
 			</a>
 

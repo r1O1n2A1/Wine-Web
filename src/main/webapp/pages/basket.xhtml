@@ -50,10 +50,18 @@
 														value="#{mBeanCartManagement.listOrderDetails}"
 														var="orderDetail">
 														<tr>
-															<td><a href="pages/article.jsf"> <img
-																	src="img/wine_pictures/#{orderDetail.productOrdered.apiId}/#{orderDetail.productOrdered.apiId}m.jpg"
-																	alt="#{orderDetail.productOrdered.name}" />
-															</a></td>
+															<td>
+																<a href="pages/article.jsf"> 
+<!-- 																<img -->
+<!-- 																	src="img/wine_pictures/#{orderDetail.productOrdered.apiId}/#{orderDetail.productOrdered.apiId}m.jpg" -->
+<!-- 																	alt="#{orderDetail.productOrdered.name}"  -->
+<!-- 																	/> -->
+																	<ui:repeat var="image" value="#{orderDetail.productOrdered.imgsWS.subList(2,3)}">
+																		<img alt="#{orderDetail.productOrdered.name}" class="" 
+																			src="data:image/jpg;base64,#{image}" />
+																	</ui:repeat>
+																</a>
+															</td>
 															<td><input jsf:id="quantityProduct" type="number"
 																jsf:value="#{orderDetail.quantite}" class="form-control">
 															<f:ajax event="change" execute="@form" render="@form" />
