@@ -6,6 +6,8 @@
 package fr.afcepf.atod.mbeans.mbeanorder;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +19,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+
+import com.mysql.jdbc.RandomBalanceStrategy;
 
 import fr.afcepf.atod.mbeans.mbeanproduct.MBeanProduct;
 import fr.afcepf.atod.mbeans.mbeanuser.MBeanConnexion;
@@ -60,8 +64,10 @@ public class MBeanCartManagement implements Serializable {
 	private double totalLine;
 	private double shipping;
 	private double total;
+	private double totalWithoutShipping;
 	DecimalFormat df = new DecimalFormat("0.##");;
-	
+	public final static int MIN_ID_SECURE = 1000;
+	public final static int MAX_ID_SECURE = 1000000000;
 
 	public MBeanCartManagement() {
 		super();
@@ -261,6 +267,15 @@ public class MBeanCartManagement implements Serializable {
 		return Double.parseDouble(df.format(total));
 	}
 
+	
+	public double calculTotalNoShipping() {
+		totalWithoutShipping = 0.0;
+		for (OrderDetail o : order.getOrdersDetail()) {
+			totalWithoutShipping = totalWithoutShipping 
+					+ calculTotalLine(o);
+		}
+		return Double.parseDouble(df.format(totalWithoutShipping));
+	}
 
 	/**
 	 *verifier si le customer est connecté
@@ -269,6 +284,10 @@ public class MBeanCartManagement implements Serializable {
 	 **/
 	public String validePanier(){
 		String page = null;
+		if (order.getId() != 0) {
+			// TODO add check if the id is not in the db;
+			order.setId(secureRandomID());
+		}
 		if (mBeanConnexion.getUserConnected().getId() != null && order.getOrdersDetail().size()!=0) {
 			order.setCustomer((Customer)mBeanConnexion.getUserConnected());
 			order.setCreatedAt(new Date());
@@ -278,6 +297,13 @@ public class MBeanCartManagement implements Serializable {
 		}
 		return page;
 	}
+	
+	public int secureRandomID() {
+		SecureRandom random = new SecureRandom();
+		return  random.nextInt((MAX_ID_SECURE - MIN_ID_SECURE) + 1) 
+				+ MIN_ID_SECURE;
+	}
+	
 	/**
 	 *customer non connecté, soit s'inscrire soit connecter a partir du register 
 	 *pour valider le panier et direger vers valide adresse
@@ -285,7 +311,6 @@ public class MBeanCartManagement implements Serializable {
 
 	public String connectedGoToCheckout1(){
 		String page = null;
-
 		if(mBeanConnexion.connect()!=null){
 			order.setCustomer((Customer)mBeanConnexion.getUserConnected());
 			page ="/pages/checkout1adress.jsf?faces-redirect=true";
@@ -360,6 +385,20 @@ public class MBeanCartManagement implements Serializable {
 		validOrder = true;		
 	}
 
+	/**
+	 * call WS SOAP Shipping from BUOrder 
+	 */
+	
+	public void sendInfosToWSSoap() {
+		Customer customer = (Customer) mBeanConnexion.getUserConnected();
+		try {
+			buOrder.checkoutShipping(customer, lastOrder, total);
+		} catch (WineException e) {
+			log.error(e);
+		}
+	}
+	
+	
 
 	//  ######################################################## //
 
