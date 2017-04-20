@@ -68,7 +68,7 @@ public class MBeanCartManagement implements Serializable {
 	DecimalFormat df = new DecimalFormat("0.##");;
 	public final static int MIN_ID_SECURE = 1000;
 	public final static int MAX_ID_SECURE = 1000000000;
-
+	public String idPaymentFromPaypal;
 	public MBeanCartManagement() {
 		super();
 		errorAddProduct = "";
@@ -143,10 +143,11 @@ public class MBeanCartManagement implements Serializable {
 	
 	public void checkoutWithPaypal() {
 		df = new DecimalFormat("0.##");
+		idPaymentFromPaypal = "";
 		if (order != null && order.getOrdersDetail() != null) {
 			// call business layer
 			try {
-				buOrder.checkoutPaypal(order,Double.parseDouble(df.format(shipping)),
+				idPaymentFromPaypal = buOrder.checkoutPaypal(order,Double.parseDouble(df.format(shipping)),
 						Double.parseDouble(df.format(total)));
 			} catch (WineException e) {
 				log.error(e);
@@ -284,7 +285,7 @@ public class MBeanCartManagement implements Serializable {
 	 **/
 	public String validePanier(){
 		String page = null;
-		if (order.getId() != 0) {
+		if (order != null) {
 			// TODO add check if the id is not in the db;
 			order.setId(secureRandomID());
 		}
