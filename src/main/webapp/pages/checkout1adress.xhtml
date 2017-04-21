@@ -3,6 +3,11 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	template="/WEB-INF/templates/commons.xhtml">
+	<script type="text/javascript">
+    function pop(){
+            window.close();
+    }
+	</script>
 	<ui:define name="body">
 		<div id="content">
 			<div class="container">
@@ -46,7 +51,7 @@
 												<div class="col-md-3">
 													<p class="text-uppercase">
 														<h:outputText
-															value="#{mBeanConnexion.userConnected.lastname}"/>
+															value="#{mBeanConnexion.userConnected.lastname}" />
 													</p>
 												</div>
 												<div class="col-md-3">
@@ -279,9 +284,14 @@
 								</div>
 
 								<div class="pull-right">
-									<h:commandButton
-										action="#{mBeanCartManagement.validerAdresse()}"
-										value="Valider et aller à la page de livraison" class="btn btn-primary"></h:commandButton>
+									<!-- 									<h:commandButton -->
+									<!-- 										action="#{mBeanCartManagement.validerAdresse()}" -->
+									<!-- 										value="Valider la livraison" class="btn btn-primary"> -->
+									<!-- 										</h:commandButton> -->
+									<h:commandButton value="Valider la livraison" class="btn btn-primary"
+										action="#{mBeanCartManagement.validerAdresse()}" 
+										onclick="javascript:window.close();opener.window.focus();">
+									</h:commandButton>
 								</div>
 							</div>
 						</h:form>
@@ -295,44 +305,46 @@
 				<div class="col-md-3">
 
 					<div class="box" id="order-summary">
-								<div class="box-header">
-									<h3>Recapitulatif du panier</h3>
-								</div>
-								<p class="text-muted">Les Couts du transport et couts
-									additionnel sont calculees a partir des valeurs que vous avez
-									rentrees.</p>
-								<div class="table-responsive">
-									<table class="table" id="tabRecapOrder">
-										<tbody>
-											<tr>
-												<td>Sous total</td>
-												<th><h:outputText id="subTotal"
-														value="#{mBeanCartManagement.calculSubTotal()}€">
-														 <f:convertNumber minFractionDigits="2" />
-													</h:outputText></th>
-											</tr>
-											<tr>
-												<td>Frais de transport</td>
-												<th><h:outputText id="shipping"
-														value="#{mBeanCartManagement.caclulShippingFree()}€">
-														 <f:convertNumber minFractionDigits="2" />
-													</h:outputText></th>
-											</tr>
-											<tr>
-												<td>Tax</td>
-												<th>0.00€</th>
-											</tr>
-											<tr class="total">
-												<td>Total</td>
-												<th><h:outputText id="total"
-														value="#{mBeanCartManagement.calculTotal()}€">
-														 <f:convertNumber minFractionDigits="2" />
-													</h:outputText></th>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
+						<div class="box-header">
+							<h3>Recapitulatif du panier</h3>
+						</div>
+						<p class="text-muted">Les Couts du transport et couts
+							additionnel sont calculees a partir des valeurs que vous avez
+							rentrees.</p>
+						<div class="table-responsive">
+							<table class="table" id="tabRecapOrder">
+								<tbody>
+									<tr>
+										<td>Sous total</td>
+										<th><h:outputText id="subTotal"
+												value="#{mBeanCartManagement.calculSubTotal()}€">
+												<f:convertNumber minFractionDigits="2" />
+											</h:outputText></th>
+									</tr>
+									<tr>
+										<td>Frais de transport</td>
+										<th>
+<!-- 										<h:outputText id="shipping" -->
+<!-- 												value="#{mBeanCartManagement.caclulShippingFree()}€"> -->
+<!-- 												<f:convertNumber minFractionDigits="2" /> -->
+<!-- 											</h:outputText> -->
+											</th>
+									</tr>
+									<tr>
+										<td>Tax</td>
+										<th>0.00€</th>
+									</tr>
+									<tr class="total">
+										<td>Total</td>
+										<th><h:outputText id="total"
+												value="#{mBeanCartManagement.calculTotal()}€">
+												<f:convertNumber minFractionDigits="2" />
+											</h:outputText></th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 
 				</div>
 				<!-- /.col-md-3 -->

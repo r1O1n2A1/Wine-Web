@@ -97,7 +97,7 @@
 												<td></td>
 												<td>Frais de transport</td>
 												<th><h:outputText id="shipping"
-														value="#{mBeanCartManagement.order.ordersDetail.size()*1.5}€">
+														value="#{mBeanCartManagement.caclulShippingFree()}€">
 														 <f:convertNumber minFractionDigits="2" />
 													</h:outputText></th>
 											</tr>
@@ -107,7 +107,7 @@
 												<td></td>
 												<td>Total</td>
 												<th><h:outputText id="total"
-														value="#{mBeanCartManagement.calculTotal() + mBeanCartManagement.order.ordersDetail.size()*1.5}€">
+														value="#{mBeanCartManagement.calculTotal()}€">
 													 <f:convertNumber minFractionDigits="2" />
 													</h:outputText></th>
 											</tr>

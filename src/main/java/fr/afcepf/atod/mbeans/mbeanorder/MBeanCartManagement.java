@@ -62,13 +62,16 @@ public class MBeanCartManagement implements Serializable {
 	private boolean validOrder;
 	private Customer customer = new Customer();
 	private double totalLine;
-	private double shipping;
+	private double shipping = 22;
 	private double total;
 	private double totalWithoutShipping;
 	DecimalFormat df = new DecimalFormat("0.##");;
 	public final static int MIN_ID_SECURE = 1000;
 	public final static int MAX_ID_SECURE = 1000000000;
+	public String idAddresseLivraison;
 	public String idPaymentFromPaypal;
+	
+	
 	public MBeanCartManagement() {
 		super();
 		errorAddProduct = "";
@@ -245,10 +248,10 @@ public class MBeanCartManagement implements Serializable {
 	 * @return
 	 */
 	public double caclulShippingFree() {
-		shipping = 0.0;
+//		shipping = 0.0;
 		//        if (calculerNumTotalQantity() != 0.0 & order.getShippingMethod().getId()==1) 
 		if (calculerNumTotalQantity() != 0.0) {
-			shipping = calculerNumTotalQantity() * 1.5;
+//			shipping = calculerNumTotalQantity() * 1.5;
 		}
 		return Double.parseDouble(df.format(shipping));
 	}
@@ -324,10 +327,12 @@ public class MBeanCartManagement implements Serializable {
 	 * */
 	public String validerAdresse(){
 		String page = null;
+		idAddresseLivraison = "";
 		if(order.getCustomer().getAdress()!= null 
 				&& order.getOrdersDetail().size()!=0){
 			//order.getCustomer().setAdress(adress);
-			page ="/pages/checkout2livraison.jsf?faces-redirect=true";
+			idAddresseLivraison = sendInfosToWSSoap();
+//			page ="/pages/checkout2livraison.jsf?faces-redirect=true";
 		}
 		return page;
 	}
@@ -390,13 +395,15 @@ public class MBeanCartManagement implements Serializable {
 	 * call WS SOAP Shipping from BUOrder 
 	 */
 	
-	public void sendInfosToWSSoap() {
+	public String sendInfosToWSSoap() {
 		Customer customer = (Customer) mBeanConnexion.getUserConnected();
+		String returnIdShipping = "";
 		try {
-			buOrder.checkoutShipping(customer, lastOrder, total);
+			returnIdShipping = buOrder.checkoutShipping(customer, order, total);
 		} catch (WineException e) {
 			log.error(e);
 		}
+		return returnIdShipping;
 	}
 	
 	
